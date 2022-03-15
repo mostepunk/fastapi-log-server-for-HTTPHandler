@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  app:
+    <<: &app
+      build:
+        context: .
+        dockerfile: Dockerfile
+      restart: on-failure
+      volumes:
+        - .:/app
+        - ./logs:/logs
+      env_file:
+        - .env
+      networks:
+        - internal
+    ports:
+      - "5000:5000"
+    container_name: log_server
+    command: >
+        bash -c "uvicorn --host=0.0.0.0 --port 5000 app.main:app --reload"
+
+  # heartbeat:
+  #   <<: *app
+  #   command: /usr/local/bin/python3 app/task_runner/tasks/periodic.py
+
+networks:
+  internal:
