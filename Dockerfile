@@ -1,4 +1,4 @@
-FROM nexus.utkonos.dev:5000/python:3.8-slim-buster
+FROM python:3.8-slim-buster
 
 ENV PYTHONUNBUFFERED 1
 
